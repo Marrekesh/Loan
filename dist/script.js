@@ -931,11 +931,110 @@ module.exports = g;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/slider */ "./src/js/modules/slider.js");
+/* harmony import */ var _modules_playVideo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/playVideo */ "./src/js/modules/playVideo.js");
+
 
 window.addEventListener('DOMContentLoaded', function () {
   var slider = new _modules_slider__WEBPACK_IMPORTED_MODULE_0__["default"]('.page', '.next');
   slider.render();
+  var video = new _modules_playVideo__WEBPACK_IMPORTED_MODULE_1__["default"]('.showup .play', '.overlay');
+  video.init();
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/playVideo.js":
+/*!*************************************!*\
+  !*** ./src/js/modules/playVideo.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PlayVideo; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var PlayVideo =
+/*#__PURE__*/
+function () {
+  function PlayVideo(btns, modal) {
+    _classCallCheck(this, PlayVideo);
+
+    this.btns = document.querySelectorAll(btns);
+    this.modal = document.querySelector(modal);
+    this.close = this.modal.querySelector('.close');
+  }
+
+  _createClass(PlayVideo, [{
+    key: "bintBtns",
+    value: function bintBtns() {
+      var _this = this;
+
+      this.btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          if (document.querySelector('iframe#frame')) {
+            _this.modal.style.display = 'flex';
+          } else {
+            var path = btn.getAttribute('data-url');
+
+            _this.createPlayer(path);
+          }
+        });
+      });
+    }
+  }, {
+    key: "createPlayer",
+    value: function createPlayer(id) {
+      this.player = new YT.Player('frame', {
+        height: '100%',
+        width: '100%',
+        videoId: "".concat(id)
+      });
+      this.modal.style.display = 'flex';
+    }
+  }, {
+    key: "closePlayer",
+    value: function closePlayer() {
+      var _this2 = this;
+
+      this.modal.addEventListener('click', function (e) {
+        if (e.target === _this2.modal) {
+          _this2.modal.style.display = 'none';
+
+          _this2.player.stopVideo();
+        }
+      });
+      this.close.addEventListener('click', function () {
+        _this2.modal.style.display = 'none';
+
+        _this2.player.stopVideo();
+      });
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      this.bintBtns();
+      this.closePlayer();
+    }
+  }]);
+
+  return PlayVideo;
+}();
+
+
 
 /***/ }),
 
