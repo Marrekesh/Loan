@@ -1,6 +1,7 @@
 import MainSlider from "./modules/sliders/main-slider";
 import PlayVideo from './modules/playVideo';
 import SliderMini from './modules/sliders/slider-mini'
+import Card from "./modules/card";
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -35,4 +36,10 @@ window.addEventListener('DOMContentLoaded', () => {
         activeClass: 'feed__item-active',
     });
     feedSlider.init();
+
+    const cardOfficerOld = new Card('.officerold', '.officerold .plus');
+    cardOfficerOld.init();
+
+    const cardOfficerNew = new Card('.officernew', '.officernew .plus');
+    cardOfficerNew.init();
 })

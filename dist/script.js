@@ -2763,6 +2763,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_sliders_main_slider__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/sliders/main-slider */ "./src/js/modules/sliders/main-slider.js");
 /* harmony import */ var _modules_playVideo__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/playVideo */ "./src/js/modules/playVideo.js");
 /* harmony import */ var _modules_sliders_slider_mini__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/sliders/slider-mini */ "./src/js/modules/sliders/slider-mini.js");
+/* harmony import */ var _modules_card__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/card */ "./src/js/modules/card.js");
+
 
 
 
@@ -2797,7 +2799,85 @@ window.addEventListener('DOMContentLoaded', function () {
     activeClass: 'feed__item-active'
   });
   feedSlider.init();
+  var cardOfficerOld = new _modules_card__WEBPACK_IMPORTED_MODULE_3__["default"]('.officerold', '.officerold .plus');
+  cardOfficerOld.init();
+  var cardOfficerNew = new _modules_card__WEBPACK_IMPORTED_MODULE_3__["default"]('.officernew', '.officernew .plus');
+  cardOfficerNew.init();
 });
+
+/***/ }),
+
+/***/ "./src/js/modules/card.js":
+/*!********************************!*\
+  !*** ./src/js/modules/card.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Card; });
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! core-js/modules/web.dom-collections.for-each */ "./node_modules/core-js/modules/web.dom-collections.for-each.js");
+/* harmony import */ var core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_web_dom_collections_for_each__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Card =
+/*#__PURE__*/
+function () {
+  function Card(container, addClick) {
+    _classCallCheck(this, Card);
+
+    this.container = document.querySelector(container);
+    this.items = this.container.children;
+    this.addClick = this.container.querySelector(addClick);
+  }
+
+  _createClass(Card, [{
+    key: "hideCards",
+    value: function hideCards() {
+      var _this = this;
+
+      this.items.forEach(function (item, i, arr) {
+        if (item !== arr[_this.items.length - 1] && item !== arr[0]) {
+          item.style.display = 'none';
+        }
+      });
+    }
+  }, {
+    key: "showCards",
+    value: function showCards() {
+      var _this2 = this;
+
+      var count = 1;
+      this.addClick.addEventListener('click', function () {
+        _this2.items[count].classList.add('animated', 'fadeIn');
+
+        _this2.items[count].style.display = 'flex';
+        count += 1;
+
+        if (count == _this2.items.length - 1) {
+          _this2.items[_this2.items.length - 1].remove();
+        }
+      });
+    }
+  }, {
+    key: "init",
+    value: function init() {
+      this.hideCards();
+      this.showCards();
+    }
+  }]);
+
+  return Card;
+}();
+
+
 
 /***/ }),
 
