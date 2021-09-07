@@ -9,10 +9,10 @@ export default class Slider {
         autoPlay = false, 
         } = {}) {
         this.container = document.querySelector(container);
-        this.slides = this.container.children;
+        try { this.slides = this.container.children;} catch(e){}
         this.btns = document.querySelectorAll(btns);
-        this.prev = document.querySelector(prev);
-        this.next = document.querySelector(next); 
+        this.prev = document.querySelectorAll(prev);
+        this.next = document.querySelectorAll(next); 
         this.activeClass = activeClass;   
         this.animated = animated;
         this.autoPlay = autoPlay;

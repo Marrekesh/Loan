@@ -9,9 +9,10 @@ window.addEventListener('DOMContentLoaded', () => {
     const slider = new MainSlider({ container:'.page',  btns:'.next'});
     slider.render();
 
-    //MAIN VIDEO
-    const video = new PlayVideo('.showup .play', '.overlay');
-    video.init();
+    const sliderModuleapp = new MainSlider({ container:'.moduleapp',  btns:'.next', prev: '.prevmodule', next: '.nextmodule'});
+    sliderModuleapp.render();
+
+    
 
     // MINI SLIDERS
     const sliderShowup = new SliderMini({
@@ -40,6 +41,10 @@ window.addEventListener('DOMContentLoaded', () => {
     });
     feedSlider.init();
 
+    //MAIN VIDEO
+    const video = new PlayVideo('.showup .play', '.overlay');
+    video.init();
+
     //CARD
     const cardOfficerOld = new Card('.officerold', '.officerold .plus');
     cardOfficerOld.init();
@@ -49,9 +54,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     //FORM
 
-   const mainForm = new Form('.join__wrapper form', 'input', '[data-email]');
-   mainForm.init();
+    const mainForm = new Form('.join__wrapper form', 'input', '[data-email]');
+    mainForm.init();
 
-   const sheduleForm = new Form('.schedule__form form', 'input', '[data-email]');
-   sheduleForm.init();
+    const sheduleForm = new Form('.schedule__form form', 'input', '[data-email]');
+    sheduleForm.init();
 })

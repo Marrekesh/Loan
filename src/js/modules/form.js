@@ -1,8 +1,12 @@
 export default class Form {
     constructor(form, input, emailInput) {
-        this.form = document.querySelector(form);
-        this.inputs = this.form.querySelectorAll(input);
-        this.eInput = this.form.querySelectorAll(emailInput);
+       
+        try { 
+            this.form = document.querySelector(form);
+            this.inputs = this.form.querySelectorAll(input);
+            this.eInput = this.form.querySelectorAll(emailInput);
+        } catch(e){}
+
     }
 
     async postData(url, data) {
@@ -21,14 +25,17 @@ export default class Form {
     }
 
     validate() {
-        this.eInput.forEach(input => {
-            input.addEventListener('keypress', (e) => {
-                if (e.key.match(/[^a-z @ \.]/ig)) {
-                    e.preventDefault();
-                }
+        try {
+            this.eInput.forEach(input => {
+                input.addEventListener('keypress', (e) => {
+                    if (e.key.match(/[^a-z @ \.]/ig)) {
+                        e.preventDefault();
+                    }
+                })
+            
             })
-          
-        })
+        } catch (e){}
+
     }
 
     mask() {
@@ -80,50 +87,54 @@ export default class Form {
     }
 
     main(message) {
-        this.form.addEventListener('submit', (e) => {
-            e.preventDefault();
+        try {
+            this.form.addEventListener('submit', (e) => {
+                e.preventDefault();
 
-            let messageBlock = document.createElement('div');
-            messageBlock.classList.add('animated', 'fadeInUp');
-            messageBlock.textContent = message.loading;
-            // messageBlock.style.fontSize = '20px';
-            messageBlock.style.cssText = `
-            display: flex;
-            padding: 50px 0;
-            font-size: 50px;
-            color: #ccc;
-            text-align: center;
-            justify-content: center;
-            `;
-            this.form.parentNode.appendChild(messageBlock);
+                let messageBlock = document.createElement('div');
+                messageBlock.classList.add('animated', 'fadeInUp');
+                messageBlock.textContent = message.loading;
+                // messageBlock.style.fontSize = '20px';
+                messageBlock.style.cssText = `
+                display: flex;
+                padding: 50px 0;
+                font-size: 50px;
+                color: #ccc;
+                text-align: center;
+                justify-content: center;
+                `;
+                this.form.parentNode.appendChild(messageBlock);
 
-            this.form.classList.add('animated', 'fadeInOut');
-            setTimeout(() => {
-                this.form.style.display = 'none';
-            }, 400);
+                this.form.classList.add('animated', 'fadeInOut');
+                setTimeout(() => {
+                    this.form.style.display = 'none';
+                }, 400);
 
 
-            const formData = new FormData(this.form);
+                const formData = new FormData(this.form);
 
-            this.postData('assets/question.php', formData)
-                .then(res => {
-                    console.log(res);
-                    messageBlock.textContent = message.accept;
-                })
-                .catch(() => {
-                    console.log('что-то не так');
-                    messageBlock.textContent = message.fail;
-                })
-                .finally(() => {
-                    this.clearInputs();
-                    setTimeout(() => {
-                        messageBlock.remove();
-                        this.form.style.display = 'block';
-                        this.form.classList.remove('fadeInOut');
-                        this.form.classList.add('fadeInUp');
-                    }, 4000)
-                }) 
-        })
+                this.postData('assets/question.php', formData)
+                    .then(res => {
+                        console.log(res);
+                        messageBlock.textContent = message.accept;
+                    })
+                    .catch(() => {
+                        console.log('что-то не так');
+                        messageBlock.textContent = message.fail;
+                    })
+                    .finally(() => {
+                        this.clearInputs();
+                        setTimeout(() => {
+                            messageBlock.remove();
+                            this.form.style.display = 'block';
+                            this.form.classList.remove('fadeInOut');
+                            this.form.classList.add('fadeInUp');
+                        }, 4000)
+                    })
+                    
+            })
+        } catch (e){}
+            
     }
 
     init() {

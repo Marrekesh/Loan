@@ -30,51 +30,58 @@ export default class SliderMini extends Slider {
     }
 
     switchNextSlides() {
-        this.next.addEventListener('click', () => {
-            if (this.slides[1].tagName == 'BUTTON' && this.slides[2].tagName == 'BUTTON') {
-                this.container.appendChild(this.slides[0]);
-                this.container.appendChild(this.slides[1]);
-                this.container.appendChild(this.slides[2]);
-                this.animatedSlides();
-            } else if (this.slides[1].tagName == 'BUTTON') {
-                this.container.appendChild(this.slides[0]);
-                this.container.appendChild(this.slides[1]);
-                this.animatedSlides();
-            } else {
-                this.container.appendChild(this.slides[0]);
-                this.animatedSlides();
-            }
-            // this.container.appendChild(this.slides[0]);
-            // this.animatedSlides();
-        })
+        this.next.forEach(item => [
+            item.addEventListener('click', () => {
+                if (this.slides[1].tagName == 'BUTTON' && this.slides[2].tagName == 'BUTTON') {
+                    this.container.appendChild(this.slides[0]);
+                    this.container.appendChild(this.slides[1]);
+                    this.container.appendChild(this.slides[2]);
+                    this.animatedSlides();
+                } else if (this.slides[1].tagName == 'BUTTON') {
+                    this.container.appendChild(this.slides[0]);
+                    this.container.appendChild(this.slides[1]);
+                    this.animatedSlides();
+                } else {
+                    this.container.appendChild(this.slides[0]);
+                    this.animatedSlides();
+                }
+                // this.container.appendChild(this.slides[0]);
+                // this.animatedSlides();
+            })
+        ])
     }
 
     switchPrevSlides() {
-        this.prev.addEventListener('click', () => {
+        this.prev.forEach(item => {
+            item.addEventListener('click', () => {
             
-            for (let i = this.slides.length - 1; i > 0; i--) {
-                if (this.slides[i].tagName !== "BUTTON") {
-                    let activeItem = this.slides[i];
-                    this.container.insertBefore(activeItem, this.slides[0]);
-                    this.animatedSlides();
-                    break;
+                for (let i = this.slides.length - 1; i > 0; i--) {
+                    if (this.slides[i].tagName !== "BUTTON") {
+                        let activeItem = this.slides[i];
+                        this.container.insertBefore(activeItem, this.slides[0]);
+                        this.animatedSlides();
+                        break;
+                    }
+                   
                 }
-               
-            }
+            })
         })
     }
 
     init() {
-        this.container.style.cssText = `
-        display: flex;
-        flex-wrap: wrap;
-        overflow: hidden;
-        align-items: flex-start;
-        `
+        try {
+            this.container.style.cssText = `
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            align-items: flex-start;
+            `
 
-        this.switchNextSlides();
-        this.switchPrevSlides();
-        this.animatedSlides();
+            this.switchNextSlides();
+            this.switchPrevSlides();
+            this.animatedSlides();
+        } catch(e) {}
+
     }
 
 }
