@@ -3,6 +3,8 @@ import PlayVideo from './modules/playVideo';
 import SliderMini from './modules/sliders/slider-mini'
 import Card from "./modules/card";
 import Form from './modules/form';
+import Accordion from './modules/accordion';
+import Download from "./modules/download";
 
 window.addEventListener('DOMContentLoaded', () => {
     //MAIN SLIDER
@@ -45,6 +47,9 @@ window.addEventListener('DOMContentLoaded', () => {
     const video = new PlayVideo('.showup .play', '.overlay');
     video.init();
 
+    const dynamicVideo = new PlayVideo('.module__video-item .play', '.overlay');
+    dynamicVideo.init();
+
     //CARD
     const cardOfficerOld = new Card('.officerold', '.officerold .plus');
     cardOfficerOld.init();
@@ -59,4 +64,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const sheduleForm = new Form('.schedule__form form', 'input', '[data-email]');
     sheduleForm.init();
+
+    //ACCORDION
+
+    new Accordion('.module__info-show .plus').bindTrigger();
+
+    //DOWNLOAD
+
+    new Download('.download').init();
+
 })
